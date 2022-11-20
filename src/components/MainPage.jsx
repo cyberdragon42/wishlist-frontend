@@ -1,16 +1,11 @@
 import React from "react";
 
-class MainPage extends React.Component{
-    constructor(props){
-        super(props);
-    }
-    render(){
-        return(
-            <div>
-                Main page
-            </div>
-        )
-    }
+function MainPage() {
+    return (
+        <div>
+            Main page(to be continued)
+        </div>
+    )
 }
 
 export default MainPage;
