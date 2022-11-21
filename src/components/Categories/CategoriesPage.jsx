@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import axios from 'axios'
 import { NavLink } from "react-router-dom";
@@ -6,24 +6,44 @@ import Badge from "react-bootstrap/Badge";
 import Table from "react-bootstrap/Table";
 import Spinner from "react-bootstrap/Spinner";
 
-import { setCategoriesAC } from '../redux/categoriesReducer'
+import { setCategoriesAC, deleteCategoryAC, addCategoryAC } from '../../redux/categoriesReducer'
 import CreateCategory from "./CreateCategory"
+import DeleteCategory from "./DeleteCategory";
 
-let url = "https://localhost:7270/api/Categories/GetAllCategories";
+import { urls } from "../../helpers/urls"
 
 function CategoriesPage(props) {
     useEffect(() => {
-        axios.get(url)
+        getAllCategories();
+    }, [])
+
+    const getAllCategories = () => {
+        axios.get(urls.getAllCategoriesUrl())
             .then(response => {
                 props.setCategories(response.data);
             })
-    }, [])
+    }
+
+    const handleDelete = (id) => {
+        axios.delete(urls.deleteCategoryUrl(id))
+            .then(response => {
+                props.deleteCategory(id);
+            })
+    }
+
+    const handleCreate = (values) => {
+        axios.post(urls.createCategoryUrl(), values)
+            .then(response => {
+                props.addCategory(response.data);
+            })
+    }
+
     if (props.categories.length < 1) {
         return <Spinner animation="border" />
     }
     return (
         <div>
-            <CreateCategory />
+            <CreateCategory handleCreate={handleCreate} />
             <h3>All categories:</h3>
             <Table striped bordered hover>
                 <thead>
@@ -38,18 +58,22 @@ function CategoriesPage(props) {
                             return <tr>
                                 <td>{x.name}</td>
                                 <td>
-                                    <Badge bg="warning">
+                                    <Badge bg="primary">
                                         <NavLink className={"custom-navlink-dark"}
                                             to={`/categories/details/${x.id}`}>
                                             Details
                                         </NavLink>
                                     </Badge>
-                                    <Badge bg="danger">
+                                    <Badge bg="warning">
                                         <NavLink className={"custom-navlink-dark"}
                                             to={`/categories/edit/${x.id}`}>
                                             Edit
                                         </NavLink>
                                     </Badge>
+                                    <DeleteCategory
+                                        id={x.id}
+                                        handleDelete={handleDelete}
+                                    />
                                 </td>
                             </tr>
                         })
@@ -70,6 +94,14 @@ let mapDispatchToProps = (dispatch) => {
     return {
         setCategories: (categories) => {
             dispatch(setCategoriesAC(categories));
+        },
+
+        deleteCategory: (id) => {
+            dispatch(deleteCategoryAC(id));
+        },
+
+        addCategory: (category) => {
+            dispatch(addCategoryAC(category));
         }
     }
 }

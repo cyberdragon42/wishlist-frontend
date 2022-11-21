@@ -2,11 +2,11 @@ import './App.scss';
 import { Route, Routes, BrowserRouter, Outlet } from "react-router-dom";
 
 import Menu from './components/Menu';
-import CategoriesPage from "./components/CategoriesPage"
+import CategoriesPage from "./components/Categories/CategoriesPage"
 import MainPage from './components/MainPage';
-import CurrenciesPage from './components/CurrenciesPage';
-import CategoryDetails from './components/CategoryDetails';
-import EditCategory from './components/EditCategory';
+import CurrenciesPage from './components/Currencies/CurrenciesPage';
+import CategoryDetails from './components/Categories/CategoryDetails';
+import EditCategory from './components/Categories/EditCategory';
 
 function App() {
   return (

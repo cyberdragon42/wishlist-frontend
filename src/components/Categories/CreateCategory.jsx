@@ -1,27 +1,9 @@
 import React, { useState } from "react";
 import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
 import Modal from 'react-bootstrap/Modal'
+import CreateCategoryForm from "./CategoryForm";
 
-function CreateCategoryForm() {
-    return (
-        <Form>
-            <Form.Group>
-                <Form.Label>Name:</Form.Label>
-                <Form.Control type="text"></Form.Control>
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Description:</Form.Label>
-                <Form.Control as="textarea" rows={3} ></Form.Control>
-            </Form.Group>
-            <Button variant="dark" type="submit">
-                Submit
-            </Button>
-        </Form>
-    )
-}
-
-function CreateCategory() {
+function CreateCategory(props) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -40,7 +22,9 @@ function CreateCategory() {
                     <Modal.Title>Add new category</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <CreateCategoryForm />
+                    <CreateCategoryForm
+                        handleCreate={props.handleCreate}
+                        handleClose={handleClose} />
                 </Modal.Body>
             </Modal>
         </div>

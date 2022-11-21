@@ -1,9 +1,11 @@
 import React from 'react'
 
+import EditCategoryForm from './EditCategoryForm'
+
 function EditCategory() {
     return (
         <div>
-            Edit category
+            <EditCategoryForm />
         </div>
     )
 }

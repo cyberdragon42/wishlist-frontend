@@ -4,13 +4,12 @@ import axios from 'axios'
 import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner'
 
-import { setCurrenciesAC } from '../redux/currenciesReducer'
-
-let url = "https://localhost:7270/api/Currency/GetAllCurrencies";
+import { setCurrenciesAC } from '../../redux/currenciesReducer'
+import { urls } from "../../helpers/urls"
 
 function CurrenciesPage(props) {
     useEffect(() => {
-        axios.get(url)
+        axios.get(urls.getAllCurrenciesUrl())
             .then(response => {
                 props.setCurrencies(response.data);
             })
