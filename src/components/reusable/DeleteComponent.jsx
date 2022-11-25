@@ -3,11 +3,11 @@ import Badge from "react-bootstrap/Badge";
 
 import { Button, Popover, OverlayTrigger } from "react-bootstrap";
 
-function DeleteCategory(props) {
+function DeleteComponent(props) {
     let [show, setShow] = useState(false);
     const confirmation = (
         <Popover id="confirm" style={{ width: '18rem' }}>
-            <Popover.Header as="h3">Do you really want to delete this category?</Popover.Header>
+            <Popover.Header as="h3">Do you really want to delete {props.subject}?</Popover.Header>
             <Popover.Body>
                 <Button variant="primary" onClick={() => { setShow(false) }}>No</Button>
                 <Button variant="danger" onClick={() => {
@@ -21,7 +21,7 @@ function DeleteCategory(props) {
         <>
             <OverlayTrigger delay={{ show: 250, hide: 400 }}
                 trigger="click" show={show}
-                placement="right" overlay={confirmation}>
+                placement={props.placement} overlay={confirmation}>
                 <Badge bg="danger" className={"custom-navlink-dark"}
                     onClick={() => { setShow(true) }}>
                     Delete
@@ -31,4 +31,4 @@ function DeleteCategory(props) {
     )
 }
 
-export default DeleteCategory;
+export default DeleteComponent;

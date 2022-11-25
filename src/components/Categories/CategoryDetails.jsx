@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card'
 import Badge from 'react-bootstrap/Badge'
 import Spinner from 'react-bootstrap/Spinner'
 
-import { urls } from "../../helpers/urls"
+import { urls } from "../../utils/urls"
 
 function CategoryDetails() {
     let params = useParams();

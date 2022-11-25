@@ -4,7 +4,7 @@ import axios from 'axios'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
-import { urls } from "../../helpers/urls"
+import { urls } from "../../utils/urls"
 
 function EditCategoryForm(props) {
     let params = useParams();
@@ -23,7 +23,6 @@ function EditCategoryForm(props) {
 
     const onHandleSubmit = (event) => {
         event.preventDefault();
-        //props.handleClose();
         axios.put(urls.editCategoryUrl(), values)
             .then(response => {
 

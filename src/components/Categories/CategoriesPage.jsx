@@ -8,9 +8,9 @@ import Spinner from "react-bootstrap/Spinner";
 
 import { setCategoriesAC, deleteCategoryAC, addCategoryAC } from '../../redux/categoriesReducer'
 import CreateCategory from "./CreateCategory"
-import DeleteCategory from "./DeleteCategory";
 
-import { urls } from "../../helpers/urls"
+import { urls } from "../../utils/urls"
+import DeleteComponent from "../reusable/DeleteComponent";
 
 function CategoriesPage(props) {
     useEffect(() => {
@@ -34,7 +34,7 @@ function CategoriesPage(props) {
     const handleCreate = (values) => {
         axios.post(urls.createCategoryUrl(), values)
             .then(response => {
-                props.addCategory(response.data);
+                getAllCategories();
             })
     }
 
@@ -70,9 +70,11 @@ function CategoriesPage(props) {
                                             Edit
                                         </NavLink>
                                     </Badge>
-                                    <DeleteCategory
+                                    <DeleteComponent
                                         id={x.id}
                                         handleDelete={handleDelete}
+                                        placement="right"
+                                        subject="category"
                                     />
                                 </td>
                             </tr>

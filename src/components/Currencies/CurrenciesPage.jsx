@@ -5,7 +5,7 @@ import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner'
 
 import { setCurrenciesAC } from '../../redux/currenciesReducer'
-import { urls } from "../../helpers/urls"
+import { urls } from "../../utils/urls"
 
 function CurrenciesPage(props) {
     useEffect(() => {
