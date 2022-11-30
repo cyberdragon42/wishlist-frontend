@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, NavLink } from "react-router-dom";
-import { urls } from "../../utils/urls"
-import axios from 'axios';
-import { Spinner } from 'react-bootstrap';
+import { useParams} from "react-router-dom";
+import Spinner from 'react-bootstrap/Spinner';
+
 import { wishlistApi } from '../../utils/wishlistApi';
 
 function ItemDetails() {

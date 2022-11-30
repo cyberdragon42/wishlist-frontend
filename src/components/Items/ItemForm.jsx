@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { useParams, NavLink } from "react-router-dom";
-import { urls } from "../../utils/urls"
-import axios from 'axios';
+import React, { useState } from 'react'
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
-import { Spinner } from 'react-bootstrap';
 
 function ItemForm(props) {
     let [values, setValues] = useState(props.values);

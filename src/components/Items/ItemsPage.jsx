@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect } from "react";
 import CreateItem from "./CreateItem";
-import { urls } from "../../utils/urls"
 import Table from "react-bootstrap/Table"
-import Spinner from "react-bootstrap/Spinner"
-import axios from "axios"
 import { setItemsAC } from "../../redux/itemsReducer"
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
