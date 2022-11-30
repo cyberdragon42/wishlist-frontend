@@ -1,32 +1,33 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import CreateItem from "./CreateItem";
-import {urls} from "../../utils/urls"
+import { urls } from "../../utils/urls"
 import Table from "react-bootstrap/Table"
 import Spinner from "react-bootstrap/Spinner"
 import axios from "axios"
-import {setItemsAC} from "../../redux/itemsReducer"
+import { setItemsAC } from "../../redux/itemsReducer"
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import DeleteComponent from "../reusable/DeleteComponent";
 import { Badge } from "react-bootstrap";
+import { wishlistApi } from "../../utils/wishlistApi";
 
 function ItemsPage(props) {
     useEffect(() => {
         handleGet()
     }, [])
 
-    const handleGet=()=>{
-        axios.get(urls.getAllItemsUrl())
-        .then(response => {
-            props.setItems(response.data);
-        })
+    const handleGet = () => {
+        wishlistApi.getAllItems()
+            .then(response => {
+                props.setItems(response.data);
+            })
     }
 
-    const handleDelete=(id)=>{
-        axios.delete(urls.deleteItemUrl(id))
-        .then(response=>{
-            handleGet();
-        });
+    const handleDelete = (id) => {
+        wishlistApi.deleteItem(id)
+            .then(response => {
+                handleGet();
+            });
     }
 
     return (
@@ -44,7 +45,7 @@ function ItemsPage(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.items.map(i=>{
+                    {props.items.map(i => {
                         return <tr>
                             <td>{i.name}</td>
                             <td>{i.description}</td>
@@ -56,22 +57,22 @@ function ItemsPage(props) {
                                 {i.categoryName}
                             </td>
                             <td>
-                                {i.price+" "+i.currencyCode}
+                                {i.price + " " + i.currencyCode}
                             </td>
                             <td>
                                 <Badge bg="primary">
                                     <NavLink to={`/items/details/${i.id}`}
-                                    className={"custom-navlink-dark"}>
+                                        className={"custom-navlink-dark"}>
                                         Details
                                     </NavLink>
                                 </Badge>
                                 <Badge bg="warning">
                                     <NavLink to={`/items/edit/${i.id}`}
-                                    className={"custom-navlink-dark"}>
+                                        className={"custom-navlink-dark"}>
                                         Edit
                                     </NavLink>
                                 </Badge>
-                                <DeleteComponent id={i.id} 
+                                <DeleteComponent id={i.id}
                                     handleDelete={handleDelete}
                                     placement="left"
                                     subject="item"

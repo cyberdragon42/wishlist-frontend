@@ -1,32 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import axios from 'axios'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
-import { urls } from "../../utils/urls"
-
-function EditCategoryForm(props) {
-    let params = useParams();
-    const [values, setValues] = useState({
-        name: "",
-        description: "",
-        id: ""
-    });
-
-    useEffect(() => {
-        axios.get(urls.categoryDetailsUrl(params.id))
-            .then(response => {
-                setValues(response.data);
-            })
-    }, [])
+/*function EditCategoryForm(props) {
+    const [values, setValues] = useState(props.values);
 
     const onHandleSubmit = (event) => {
         event.preventDefault();
-        axios.put(urls.editCategoryUrl(), values)
-            .then(response => {
-
-            })
+        props.handleEdit(values);
     }
 
     const handleChange = (event) => {
@@ -61,4 +42,4 @@ function EditCategoryForm(props) {
     )
 }
 
-export default EditCategoryForm;
+export default EditCategoryForm;*/

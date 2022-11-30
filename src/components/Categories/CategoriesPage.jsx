@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import axios from 'axios'
 import { NavLink } from "react-router-dom";
 import Badge from "react-bootstrap/Badge";
 import Table from "react-bootstrap/Table";
@@ -9,32 +8,28 @@ import Spinner from "react-bootstrap/Spinner";
 import { setCategoriesAC, deleteCategoryAC, addCategoryAC } from '../../redux/categoriesReducer'
 import CreateCategory from "./CreateCategory"
 
-import { urls } from "../../utils/urls"
 import DeleteComponent from "../reusable/DeleteComponent";
+import { wishlistApi } from "../../utils/wishlistApi"
 
 function CategoriesPage(props) {
     useEffect(() => {
-        getAllCategories();
-    }, [])
-
-    const getAllCategories = () => {
-        axios.get(urls.getAllCategoriesUrl())
+        wishlistApi.getAllCategories()
             .then(response => {
                 props.setCategories(response.data);
             })
-    }
+    }, [])
 
     const handleDelete = (id) => {
-        axios.delete(urls.deleteCategoryUrl(id))
+        wishlistApi.deleteCategory(id)
             .then(response => {
                 props.deleteCategory(id);
             })
     }
 
     const handleCreate = (values) => {
-        axios.post(urls.createCategoryUrl(), values)
+        wishlistApi.createCategory(values)
             .then(response => {
-                getAllCategories();
+
             })
     }
 

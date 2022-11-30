@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, NavLink } from "react-router-dom";
-import axios from 'axios'
 import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
 import Badge from 'react-bootstrap/Badge'
 import Spinner from 'react-bootstrap/Spinner'
 
-import { urls } from "../../utils/urls"
+import { wishlistApi } from "../../utils/wishlistApi"
 
 function CategoryDetails() {
     let params = useParams();
     let [category, setCategory] = useState(null);
 
     useEffect(() => {
-        axios.get(urls.categoryDetailsUrl(params.id))
+        wishlistApi.getCategory(params.id)
             .then(response => {
                 setCategory(response.data);
             })

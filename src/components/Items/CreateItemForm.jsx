@@ -3,32 +3,11 @@ import {useParams} from "react-router-dom"
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import {urls} from "../../utils/urls"
+import { wishlistApi } from "../../utils/wishlistApi";
 import axios from 'axios'
 
 function CreateItemForm(props){
-    let [categories, setCategories] = useState([]);
-    let [currencies, setCurrencies] = useState([]);
-    let [values, setValues] = useState({
-        name:"",
-        description:"",
-        imageLink:"",
-        price:0,
-        currencyCode:"",
-        categoryName:""
-    });
-
-    useEffect(() => {
-        axios.get(urls.getAllCategoriesUrl())
-        .then(response=>{
-            setCategories(response.data);
-        })
-
-        axios.get(urls.getAllCurrenciesUrl())
-        .then(response=>{
-            setCurrencies(response.data);
-        })
-        
-    }, [])
+    let [values, setValues] = useState(props.values);
 
     const handleChange = (event) => {
         setValues((values) => ({
@@ -37,26 +16,9 @@ function CreateItemForm(props){
         }));
     };
 
-    const handleCreate=(payload)=>{
-        debugger;
-        axios.post(urls.createItemUrl(), payload)
-            .then(response => {
-                props.handleGet();
-            })
-    }
-
     const onHandleSubmit = (event) => {
         event.preventDefault();
-        var payload= {
-            name: values.name,
-            description: values.description,
-            imageLink: values.imageLink,
-            price: values.price,
-            currencyId: currencies.find(c=>c.code===values.currencyCode).id,
-            categoryId: categories.find(c=>c.name===values.categoryName).id
-        }
-        handleCreate(payload);
-        props.handleClose();
+        props.handleSubmit(values);
     }
     return(
         <>
@@ -105,7 +67,7 @@ function CreateItemForm(props){
                     name="currencyCode"
                     value={values.currency}
                     onChange={handleChange}>
-                    {currencies.map(c=>{
+                    {props.currencies.map(c=>{
                         return <option>{c.code}</option>
                     })}
                 </Form.Select>
@@ -116,7 +78,7 @@ function CreateItemForm(props){
                     name="categoryName"
                     value={values.category}
                     onChange={handleChange}>
-                    {categories.map(c=>{
+                    {props.categories.map(c=>{
                         return <option>{c.name}</option>
                     })}
                 </Form.Select>

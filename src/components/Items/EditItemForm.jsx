@@ -6,41 +6,8 @@ import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
 import { Spinner } from 'react-bootstrap';
 
-function CreateItemForm(props){
-    let params = useParams();
-    let [categories, setCategories] = useState([]);
-    let [currencies, setCurrencies] = useState([]);
-    let [isLoaded, setIsLoaded] = useState(false);
-
-    useEffect(() => {
-        axios.get(urls.getAllCategoriesUrl())
-        .then(response=>{
-            setCategories(response.data);
-        })
-
-        axios.get(urls.getAllCurrenciesUrl())
-        .then(response=>{
-            setCurrencies(response.data);
-        })
-
-        axios.get(urls.getItemUrl((params.id)))
-        .then(response=>{
-            setValues(response.data);
-            setIsLoaded(true);
-        })
-
-    }, [])
-
-    let [values, setValues] = useState({
-        name:"",
-        description:"",
-        imageLink:"",
-        price:0,
-        currencyName:"",
-        categoryId:"",
-        currencyId:"",
-        categoryName:""
-    });
+function EditItemForm(props){
+    let [values, setValues] = useState(props.values);
 
     const handleChange = (event) => {
         setValues((values) => ({
@@ -49,22 +16,11 @@ function CreateItemForm(props){
         }));
     };
 
-    const handleEdit=(payload)=>{
-        axios.put(urls.editItemUrl(), payload)
-            .then(response => {
-                debugger;
-               //props.handleGet();
-            })
-    }
-
     const onHandleSubmit = (event) => {
         event.preventDefault();
-        handleEdit(values);
+        props.handleSubmit(values)
     }
 
-    if(!isLoaded){
-        return <Spinner />
-    }
     return(
         <>
             <Form onSubmit={onHandleSubmit}>
@@ -91,7 +47,7 @@ function CreateItemForm(props){
             <Form.Group controlId="imageLink">
                 <Form.Label>Picture link:</Form.Label>
                 <Form.Control type="text"
-                    value={values.link}
+                    value={values.imageLink}
                     onChange={handleChange}
                     name="imageLink"
                     placeholder="Enter picture link">
@@ -112,7 +68,7 @@ function CreateItemForm(props){
                     name="currencyCode"
                     value={values.currencyName}
                     onChange={handleChange}>
-                    {currencies.map(c=>{
+                    {props.currencies.map(c=>{
                         if(c.id===values.currencyId)
                             return <option selected>{c.code}</option>
                         else
@@ -126,7 +82,7 @@ function CreateItemForm(props){
                     name="categoryName"
                     value={values.categoryName}
                     onChange={handleChange}>
-                    {categories.map(c=>{
+                    {props.categories.map(c=>{
                         if(c.id===values.categoryId)
                             return <option selected>{c.name}</option>
                         else
@@ -142,4 +98,4 @@ function CreateItemForm(props){
     )
 }
 
-export default CreateItemForm;
+export default EditItemForm;

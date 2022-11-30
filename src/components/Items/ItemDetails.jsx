@@ -1,26 +1,27 @@
-import React,{useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, NavLink } from "react-router-dom";
-import {urls} from "../../utils/urls"
+import { urls } from "../../utils/urls"
 import axios from 'axios';
 import { Spinner } from 'react-bootstrap';
+import { wishlistApi } from '../../utils/wishlistApi';
 
-function ItemDetails(){
+function ItemDetails() {
     let params = useParams();
     let [item, setItem] = useState(null);
     useEffect(() => {
-        axios.get(urls.getItemUrl(params.id))
-        .then(response=>{
-            setItem(response.data);
-        })
+        wishlistApi.getItem(params.id)
+            .then(response => {
+                setItem(response.data);
+            })
     }, [])
-    if(item===null){
+    if (item === null) {
         return <Spinner />
     }
-    return(
+    return (
         <div>
             <p>{item.name}</p>
             <p>{item.description}</p>
-            <p>{item.price+" "+item.currencyCode}</p>
+            <p>{item.price + " " + item.currencyCode}</p>
             <p>{item.categoryName}</p>
         </div>
     )

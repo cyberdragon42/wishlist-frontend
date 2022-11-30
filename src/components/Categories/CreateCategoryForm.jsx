@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
-function CategoryForm(props) {
-    const [values, setValues] = useState(props.values);
+/*function CreateCategoryForm(props) {
+    const [values, setValues] = useState({
+        name: "",
+        description: "",
+    });
+
     const onHandleSubmit = (event) => {
         event.preventDefault();
-        props.handleSubmit(values);
+        props.handleClose();
+        props.handleCreate(values);
     }
 
     const handleChange = (event) => {
@@ -41,4 +46,4 @@ function CategoryForm(props) {
     )
 }
 
-export default CategoryForm;
+export default CreateCategoryForm;*/

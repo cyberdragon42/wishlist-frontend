@@ -1,44 +1,44 @@
-export const urls={
-    getAllCategoriesUrl: ()=>{
+export const urls = {
+    getAllCategoriesUrl: () => {
         return "https://localhost:7270/api/Categories/GetAllCategories";
     },
-    deleteCategoryUrl: (id)=>{
-        return "https://localhost:7270/api/Categories/Delete/"+id;
+    deleteCategoryUrl: (id) => {
+        return "https://localhost:7270/api/Categories/Delete/" + id;
     },
 
-    categoryDetailsUrl: (id)=>{
-        return "https://localhost:7270/api/Categories/GetCategory/"+id;
+    categoryDetailsUrl: (id) => {
+        return "https://localhost:7270/api/Categories/GetCategory/" + id;
     },
 
-    createCategoryUrl: ()=>{
+    createCategoryUrl: () => {
         return "https://localhost:7270/api/Categories/Create";
     },
 
-    getAllCurrenciesUrl: ()=>{
+    getAllCurrenciesUrl: () => {
         return "https://localhost:7270/api/Currency/GetAllCurrencies";
     },
 
-    editCategoryUrl: ()=>{
+    editCategoryUrl: () => {
         return "https://localhost:7270/api/Categories/Edit";
     },
 
-    createItemUrl: ()=>{
+    createItemUrl: () => {
         return "https://localhost:7270/api/Items/Create";
     },
 
-    getAllItemsUrl: ()=>{
+    getAllItemsUrl: () => {
         return "https://localhost:7270/api/Items/GetAllItems";
     },
 
-    getItemUrl: (id)=>{
-        return "https://localhost:7270/api/Items/GetItem/"+id;
+    getItemUrl: (id) => {
+        return "https://localhost:7270/api/Items/GetItem/" + id;
     },
 
-    editItemUrl: ()=>{
+    editItemUrl: () => {
         return "https://localhost:7270/api/Items/Edit";
     },
 
-    deleteItemUrl: (id)=>{
-        return "https://localhost:7270/api/Items/Delete/"+id;
+    deleteItemUrl: (id) => {
+        return "https://localhost:7270/api/Items/Delete/" + id;
     }
 }
