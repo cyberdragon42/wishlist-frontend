@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button"
 
 function ItemForm(props) {
     let [values, setValues] = useState(props.values);
+    const [errors, setErrors] = useState({});
 
     const handleChange = (event) => {
         setValues((values) => ({
@@ -14,8 +15,39 @@ function ItemForm(props) {
 
     const onHandleSubmit = (event) => {
         event.preventDefault();
-        props.handleSubmit(values);
+        if (validate(values)) {
+            props.handleSubmit(values);
+        }
     }
+
+    const validate = () => {
+        let errors = {};
+
+        if (!values.name) {
+            errors.name = "Item name is required";
+        } else if (values.name.length > 100) {
+            errors.name = "Name is too long";
+        }
+
+        if (values.description.length > 100) {
+            errors.description = "Description is too long";
+        }
+
+        if (!values.price) {
+            errors.description = "Price is required";
+        } else if (values.price <= 0) {
+            errors.description = "Price is too little";
+        }
+
+        setErrors(errors);
+
+        if (Object.keys(errors).length === 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     return (
         <>
             <Form onSubmit={onHandleSubmit}>
@@ -27,6 +59,9 @@ function ItemForm(props) {
                         name="name"
                         placeholder="Enter item name">
                     </Form.Control>
+                    {errors.name && (
+                        <p className="text-danger">{errors.name}</p>
+                    )}
                 </Form.Group>
 
                 <Form.Group controlId="description">
@@ -37,6 +72,9 @@ function ItemForm(props) {
                         name="description"
                         placeholder="Enter description">
                     </Form.Control>
+                    {errors.description && (
+                        <p className="text-danger">{errors.description}</p>
+                    )}
                 </Form.Group>
 
                 <Form.Group controlId="imageLink">
@@ -57,6 +95,9 @@ function ItemForm(props) {
                         name="price"
                         placeholder="Enter price">
                     </Form.Control>
+                    {errors.price && (
+                        <p className="text-danger">{errors.price}</p>
+                    )}
                 </Form.Group>
                 <Form.Group controlId="currencyCode">
                     <Form.Select aria-label="Currency"
